@@ -79,10 +79,15 @@ const FiltersPanel = () => {
 
   return (
     <div className="bg-gray-900 text-white p-4 rounded-md mb-6">
-      <div className="flex flex-wrap gap-4 items-center mb-4">
-        <h2 className="text-lg font-semibold">Pricing Option:</h2>
+      <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center">
+        <h2 className="text-lg font-semibold whitespace-nowrap">
+          Pricing Option:
+        </h2>
         {pricingOptions.map((opt) => (
-          <label key={opt} className="flex items-center gap-2">
+          <label
+            key={opt}
+            className="flex items-center gap-2 whitespace-nowrap"
+          >
             <input
               type="checkbox"
               checked={pricing.includes(opt)}
@@ -94,30 +99,33 @@ const FiltersPanel = () => {
         ))}
         <input
           type="text"
+          name="search"
           placeholder="Search by title or creator..."
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
-          className="ml-4 p-2 rounded bg-gray-800 text-white placeholder-gray-400"
+          className="ml-4 w-[350px] md:[w-400px] p-2 rounded bg-gray-800 text-white placeholder-gray-400"
         />
         {pricing.includes("Paid") && (
-          <div className="w-full mt-4">
+          <div className="mt-4 w-full">
             <label className="text-sm text-gray-300 mb-2 block">
               Price Range
             </label>
-            <div className="flex items-center justify-between text-white mb-2">
+            <div className="flex items-center justify-between text-white mb-2 w-[400px]">
               <span>${priceRange[0]}</span>
               <span>${priceRange[1]}</span>
             </div>
-            <RangeSlider
-              min={0}
-              max={999}
-              step={1}
-              value={priceRange}
-              onInput={(value: [number, number]) =>
-                dispatch(setPriceRange(value))
-              }
-              className="appearance-none"
-            />
+            <div className="w-full w-[350px] md:w-[400px]">
+              <RangeSlider
+                min={0}
+                max={999}
+                step={1}
+                value={priceRange}
+                onInput={(value: [number, number]) =>
+                  dispatch(setPriceRange(value))
+                }
+                className="appearance-none"
+              />
+            </div>
           </div>
         )}
         <button
